@@ -1,0 +1,28 @@
+{
+  "name": "assessfirst/api-wrapper-module",
+  "type": "zf2-module",
+  "authors": [
+    {
+      "name": "Huguenin Jean-Baptiste",
+      "email": "jeanbaptiste.huguenin@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">= 5.4.0",
+    "zendframework/zend-modulemanager": "^2.7",
+    "zendframework/zend-servicemanager": "~2.0",
+    "guzzlehttp/guzzle-services": "^1.1",
+    "zendframework/zend-loader": "^2.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.4.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "ApiWrapperModule\\": "src/"
+    },
+    "classmap": [
+      "./"
+    ]
+  }
+}
