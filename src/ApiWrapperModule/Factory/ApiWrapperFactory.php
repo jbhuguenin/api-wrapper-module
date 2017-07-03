@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiWrapper\Factory;
+namespace ApiWrapperModule\Factory;
 
 use ApiWrapperModule\Service\ApiWrapper;
 use Zend\ServiceManager\FactoryInterface;
