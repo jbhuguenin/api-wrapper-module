@@ -1,7 +1,6 @@
 <?php
 namespace ApiWrapperModule\Factory;
 
-use ApiWrapper\Factory\ApiWrapperFactory;
 use ApiWrapperModule\Bootstrap;
 use ApiWrapperModule\Service\ApiWrapper;
 use ApiWrapperModule\Service\JobOffer;
@@ -19,32 +18,36 @@ class ApiWrapperFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $config = [
             'api-wrapper' => [
-                'baseUri' => 'http://httpbin.org/',
-                'operations' => [
-                    'testing' => [
-                        'httpMethod' => 'GET',
-                        'uri' => '/get{?foo}',
-                        'responseModel' => 'getResponse',
-                        'parameters' => [
-                            'foo' => [
-                                'type' => 'string',
-                                'location' => 'uri'
-                            ],
-                            'bar' => [
-                                'type' => 'string',
-                                'location' => 'query'
+                'client' => ['http_errors' => false],
+                'description' => [
+                    'baseUri' => 'http://httpbin.org/',
+                    'operations' => [
+                        'testing' => [
+                            'httpMethod' => 'GET',
+                            'uri' => '/get{?foo}',
+                            'responseModel' => 'getResponse',
+                            'parameters' => [
+                                'foo' => [
+                                    'type' => 'string',
+                                    'location' => 'uri'
+                                ],
+                                'bar' => [
+                                    'type' => 'string',
+                                    'location' => 'query'
+                                ]
+                            ]
+                        ]
+                    ],
+                    'models' => [
+                        'getResponse' => [
+                            'type' => 'object',
+                            'additionalProperties' => [
+                                'location' => 'json'
                             ]
                         ]
                     ]
-                ],
-                'models' => [
-                    'getResponse' => [
-                        'type' => 'object',
-                        'additionalProperties' => [
-                            'location' => 'json'
-                        ]
-                    ]
                 ]
+
             ]
         ];
 

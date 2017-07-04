@@ -4,6 +4,7 @@ namespace ApiWrapperModule\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
+use Zend\Config\Exception\RuntimeException;
 
 /**
  * Created by PhpStorm.
@@ -20,9 +21,13 @@ class ApiWrapper extends GuzzleClient
      */
     public function __construct($config)
     {
+        $configClient = (isset($config['client'])) ? $config['client'] : [];
+        $client = new Client($configClient);
 
-        $client = new Client();
-        $description = new Description($config);
+        if (! isset($config['description'])) {
+            throw new RuntimeException('missing description configuration');
+        }
+        $description = new Description($config['description']);
 
         parent::__construct($client, $description);
     }
