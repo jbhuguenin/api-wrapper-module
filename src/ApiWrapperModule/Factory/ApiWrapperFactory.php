@@ -27,7 +27,7 @@ class ApiWrapperFactory implements FactoryInterface
 
         if (!isset($config['api-wrapper'])) {
             throw new \RuntimeException(
-                'No config was found for JobOffer. Did you copy the `job_offer.local.php` file to your autoload folder?'
+                'No config was found for api-wrapper. Did you copy the `api-wrapper.local.php` file to your autoload folder?'
             );
         }
 
