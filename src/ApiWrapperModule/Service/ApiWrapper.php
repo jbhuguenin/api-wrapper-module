@@ -15,6 +15,8 @@ use Zend\Config\Exception\RuntimeException;
 class ApiWrapper extends GuzzleClient
 {
 
+    private $description;
+
     /**
      * JobOffer constructor.
      * @param \GuzzleHttp\ClientInterface $config
@@ -27,8 +29,21 @@ class ApiWrapper extends GuzzleClient
         if (! isset($config['description'])) {
             throw new RuntimeException('missing description configuration');
         }
-        $description = new Description($config['description']);
+        $this->description = new Description($config['description']);
 
-        parent::__construct($client, $description);
+        parent::__construct($client, $this->getDescription(), null, $this->getDeserializer());
+    }
+
+    /**
+     * @return Deserializer
+     */
+    public function getDeserializer()
+    {
+        return new Deserializer($this->getDescription(), true);
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
