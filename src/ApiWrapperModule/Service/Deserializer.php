@@ -11,6 +11,7 @@ namespace ApiWrapperModule\Service;
 
 use GuzzleHttp\Command\Guzzle\Parameter;
 use Psr\Http\Message\ResponseInterface;
+use Zend\Stdlib\ArraySerializableInterface;
 
 class Deserializer extends \GuzzleHttp\Command\Guzzle\Deserializer
 {
@@ -21,7 +22,6 @@ class Deserializer extends \GuzzleHttp\Command\Guzzle\Deserializer
      */
     protected function visit(Parameter $model, ResponseInterface $response)
     {
-
         if ($model->getType() === 'class') {
             $result = $this->visitOuterClass($model, $response);
         } else {
@@ -31,10 +31,8 @@ class Deserializer extends \GuzzleHttp\Command\Guzzle\Deserializer
         return $result;
     }
 
-    private function visitOuterClass(
-        Parameter $model,
-        ResponseInterface $response
-    ) {
+    private function visitOuterClass(Parameter $model, ResponseInterface $response) {
+
         if(!$className = $model->getData('className')) {
             throw new \InvalidArgumentException('Unknown className: ' . $className);
         }
@@ -45,8 +43,8 @@ class Deserializer extends \GuzzleHttp\Command\Guzzle\Deserializer
 
         $class = new $className();
 
-        if (!$class instanceof \ArrayObject) {
-            throw new \InvalidArgumentException('Class must implements \Arrayobject');
+        if (!$class instanceof ArraySerializableInterface) {
+            throw new \InvalidArgumentException('Class must implements \Zend\Stdlib\ArraySerializableInterface');
         }
 
         return $class->exchangeArray(\GuzzleHttp\json_decode($response->getBody(), true));
